@@ -6,6 +6,7 @@ namespace New_Application.Infrastructure {
     public class Profiler : Profile {
         public Profiler () {
             CreateMap<Employee, EmployeeVm> ().ReverseMap ();
+            CreateMap<CreateEmployee, Employee> ().ReverseMap ();
         }
     }
 }

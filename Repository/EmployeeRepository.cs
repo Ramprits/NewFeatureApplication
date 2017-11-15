@@ -23,7 +23,7 @@ namespace New_Application.Repository {
             throw new NotImplementedException ();
         }
         public async Task<IEnumerable<Employee>> GetEmployeesAsync () {
-            return await _context.Employees.ToListAsync ();
+            return await _context.Employees.Include (x => x.Department).ToListAsync ();
         }
         public async Task<Employee> InsertEmployeeAsync (Employee entity) {
             await _context.Employees.AddAsync (entity);
@@ -36,8 +36,8 @@ namespace New_Application.Repository {
             return entity;
         }
 
-        public Task<bool> SaveAsync () {
-            throw new NotImplementedException ();
+        public async Task<bool> SaveAsync () {
+            return (await _context.SaveChangesAsync () >= 0);
         }
 
         public Task<bool> UpdateEmployeeAsync (Employee entity) {

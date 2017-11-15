@@ -1,0 +1,10 @@
+c:\Users\R1163213\Downloads\New Application\bin\Debug\netcoreapp2.0\New Application.deps.json
+c:\Users\R1163213\Downloads\New Application\bin\Debug\netcoreapp2.0\New Application.runtimeconfig.json
+c:\Users\R1163213\Downloads\New Application\bin\Debug\netcoreapp2.0\New Application.runtimeconfig.dev.json
+c:\Users\R1163213\Downloads\New Application\bin\Debug\netcoreapp2.0\New Application.dll
+c:\Users\R1163213\Downloads\New Application\bin\Debug\netcoreapp2.0\New Application.pdb
+c:\Users\R1163213\Downloads\New Application\obj\Debug\netcoreapp2.0\New Application.csproj.CoreCompileInputs.cache
+c:\Users\R1163213\Downloads\New Application\obj\Debug\netcoreapp2.0\New Application.AssemblyInfoInputs.cache
+c:\Users\R1163213\Downloads\New Application\obj\Debug\netcoreapp2.0\New Application.AssemblyInfo.cs
+c:\Users\R1163213\Downloads\New Application\obj\Debug\netcoreapp2.0\New Application.dll
+c:\Users\R1163213\Downloads\New Application\obj\Debug\netcoreapp2.0\New Application.pdb

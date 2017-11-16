@@ -10,6 +10,7 @@ namespace New_Application.Repository {
         Task<Employee> InsertEmployeeAsync (Employee entity);
         Task<bool> UpdateEmployeeAsync (Employee entity);
         Task<bool> DeleteEmployeeAsync (Guid id);
+        Task<bool> EmployeeExist (Guid id);
         Task<bool> SaveAsync ();
     }
 }

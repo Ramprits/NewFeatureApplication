@@ -15,8 +15,19 @@ namespace New_Application.Repository {
             _context = context;
             _Logger = loggerFactory.CreateLogger ("EmployeeRepository");
         }
-        public Task<bool> DeleteEmployeeAsync (Guid id) {
-            throw new NotImplementedException ();
+        public async Task<bool> DeleteEmployeeAsync (Guid id) {
+            var deleteEmployee = await _context.Employees.FirstOrDefaultAsync (x => x.EmployeeId == id);
+            _context.Remove (deleteEmployee);
+            try {
+                return (await _context.SaveChangesAsync () > 0 ? true : false);
+            } catch (System.Exception exp) {
+                _Logger.LogError ($"Error in {nameof(DeleteEmployeeAsync)}: " + exp.Message);
+            }
+            return false;
+        }
+
+        public async Task<bool> EmployeeExist (Guid id) {
+            return await _context.Employees.AnyAsync (x => x.EmployeeId == id);
         }
 
         public Task<Employee> GetEmployeeAsync (Guid id) {

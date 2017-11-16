@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using New_Application.Infrastructure;
 using New_Application.Models;
 using New_Application.Repository;
 using New_Application.ViewModels;
@@ -21,19 +22,22 @@ namespace New_Application.Controllers {
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet, NoCache]
         public async Task<IActionResult> Get () {
             var getEmployees = await _repository.GetEmployeesAsync ();
             return Ok (_mapper.Map<IEnumerable<EmployeeVm>> (getEmployees));
         }
 
-        [HttpGet ("{EmployeeId}", Name = "getEmployee")]
+        [HttpGet ("{EmployeeId}", Name = "getEmployee"), NoCache]
         public async Task<IActionResult> Get (Guid EmployeeId) {
+            if (!await _repository.EmployeeExist (EmployeeId)) {
+                return NotFound ($"Unable to find employee with {EmployeeId}");
+            }
             var getEmployee = await _repository.GetEmployeeAsync (EmployeeId);
             return Ok (_mapper.Map<EmployeeVm> (getEmployee));
         }
 
-        [HttpPost]
+        [HttpPost, NoCache]
         public async Task<IActionResult> Post ([FromBody] CreateEmployee entity) {
             if (!ModelState.IsValid) {
                 return BadRequest ();
@@ -44,6 +48,16 @@ namespace New_Application.Controllers {
                 return BadRequest ();
             }
             return Created ("getEmployee", null);
+        }
+
+        [HttpDelete ("{EmployeeId}")]
+        public async Task<IActionResult> Delete (Guid EmployeeId) {
+            //TODO: Implement Realistic Implementation
+            await _repository.DeleteEmployeeAsync (EmployeeId);
+            if (!await _repository.SaveAsync ()) {
+                return BadRequest ();
+            }
+            return NoContent ();
         }
     }
 }

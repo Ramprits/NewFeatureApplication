@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using New_Application.Infrastructure;
 using New_Application.Repository;
 using Newtonsoft.Json;
@@ -26,10 +27,17 @@ namespace New_Application {
                         ReferenceLoopHandling.Ignore;
                 });
             services.AddScoped<IEmployeeRepository, EmployeeRepository> ();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository> ();
             services.AddAutoMapper ();
         }
 
-        public void Configure (IApplicationBuilder app, IHostingEnvironment env) {
+        public void Configure (IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
+            loggerFactory.AddConsole ();
+
+            loggerFactory.AddDebug (LogLevel.Information);
+            if (env.IsDevelopment ()) {
+                app.UseDeveloperExceptionPage ();
+            }
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
             }

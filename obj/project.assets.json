@@ -12608,11 +12608,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\R1163213\\Downloads\\New Application\\New Application.csproj",
+      "projectUniqueName": "c:\\Users\\R1163213\\Downloads\\New Application\\New Application.csproj",
       "projectName": "New Application",
-      "projectPath": "C:\\Users\\R1163213\\Downloads\\New Application\\New Application.csproj",
+      "projectPath": "c:\\Users\\R1163213\\Downloads\\New Application\\New Application.csproj",
       "packagesPath": "C:\\Users\\R1163213\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\R1163213\\Downloads\\New Application\\obj\\",
+      "outputPath": "c:\\Users\\R1163213\\Downloads\\New Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

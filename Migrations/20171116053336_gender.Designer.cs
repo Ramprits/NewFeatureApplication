@@ -11,9 +11,10 @@ using System;
 namespace NewApplication.Migrations
 {
     [DbContext(typeof(NewApplicationDbContext))]
-    partial class NewApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171116053336_gender")]
+    partial class gender
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,8 +25,6 @@ namespace NewApplication.Migrations
                 {
                     b.Property<Guid>("DepartmentId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime>("LastModified");
 
@@ -40,8 +39,6 @@ namespace NewApplication.Migrations
                 {
                     b.Property<Guid>("EmployeeId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedDate");
 
                     b.Property<Guid>("DepartmentId");
 
@@ -72,8 +69,6 @@ namespace NewApplication.Migrations
                 {
                     b.Property<Guid>("GenderId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime>("LastModified");
 

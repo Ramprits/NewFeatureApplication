@@ -10,7 +10,6 @@ namespace New_Application.Infrastructure {
             CreateMap<Department, DepartmentVm> ().
             ForMember (x => x.Label, opt => opt.MapFrom (x => x.Name)).
             ForMember (x => x.Value, opt => opt.MapFrom (x => x.DepartmentId));
-
             CreateMap<CreateDepartment, Department> ().ReverseMap ();
         }
     }

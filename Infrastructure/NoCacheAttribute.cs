@@ -8,7 +8,6 @@ namespace New_Application.Infrastructure {
             context.HttpContext.Response.Headers["Cache-Control"] = "no-cache, no-store, max-age=0";
             context.HttpContext.Response.Headers["Pragma"] = "no-cache";
             context.HttpContext.Response.Headers["Expires"] = "-1";
-
             base.OnResultExecuting (context);
         }
     }

@@ -16,7 +16,8 @@ namespace New_Application.Controllers {
         private readonly ILogger<EmployeesController> _logger;
         private readonly IMapper _mapper;
 
-        public EmployeesController (IEmployeeRepository repository, ILogger<EmployeesController> logger, IMapper mapper) {
+        public EmployeesController (IEmployeeRepository repository,
+         ILogger<EmployeesController> logger, IMapper mapper) {
             _repository = repository;
             _logger = logger;
             _mapper = mapper;

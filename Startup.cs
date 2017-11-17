@@ -52,14 +52,17 @@ namespace New_Application {
                                 exceptionHandlerFeature.Error,
                                 exceptionHandlerFeature.Error.Message);
                         }
-
                         context.Response.StatusCode = 500;
                         await context.Response.WriteAsync ("An unexpected fault happened. Try again later.");
 
                     });
                 });
             }
-
+            app.UseCors ((corsPolicyBuilder) => {
+                corsPolicyBuilder.AllowAnyOrigin ();
+                corsPolicyBuilder.AllowAnyMethod ();
+                corsPolicyBuilder.AllowAnyHeader ();
+            });
             app.UseMvc ();
         }
     }

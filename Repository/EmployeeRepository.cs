@@ -25,18 +25,24 @@ namespace New_Application.Repository {
             }
             return false;
         }
-
         public async Task<bool> EmployeeExist (Guid id) {
             return await _context.Employees.AnyAsync (x => x.EmployeeId == id);
         }
-
-        public Task<Employee> GetEmployeeAsync (Guid id) {
-            throw new NotImplementedException ();
+        public async Task<Employee> GetEmployeeAsync (Guid id) {
+            return await _context.Employees.FirstOrDefaultAsync (x => x.EmployeeId == id);
         }
         public async Task<IEnumerable<Employee>> GetEmployeesAsync () {
             return await _context.Employees.Include (x => x.Department).ToListAsync ();
         }
         public async Task<Employee> InsertEmployeeAsync (Employee entity) {
+            entity.EmployeeId = Guid.NewGuid ();
+            var employeeAlreadyExists = _context.Employees.AnyAsync (x => x.EmployeeId == entity.EmployeeId);
+            if (await employeeAlreadyExists) {
+                throw new Exception ($"employee with {entity.EmployeeId} is already exists !");
+            }
+            if (entity.FirstName == entity.LastName) {
+                throw new Exception ($"{entity.FirstName} and {entity.LastName} couldn't be same.");
+            }
             await _context.Employees.AddAsync (entity);
             try {
                 await _context.SaveChangesAsync ();

@@ -10,26 +10,26 @@ using New_Application.Repository;
 using New_Application.ViewModels;
 
 namespace New_Application.Controllers {
-    [Route ("api/Employees")]
+    [Route ("api/Employees"), ValidateModel, NoCache]
     public class EmployeesController : Controller {
         private readonly IEmployeeRepository _repository;
         private readonly ILogger<EmployeesController> _logger;
         private readonly IMapper _mapper;
 
         public EmployeesController (IEmployeeRepository repository,
-         ILogger<EmployeesController> logger, IMapper mapper) {
+            ILogger<EmployeesController> logger, IMapper mapper) {
             _repository = repository;
             _logger = logger;
             _mapper = mapper;
         }
 
-        [HttpGet, NoCache]
+        [HttpGet]
         public async Task<IActionResult> Get () {
             var getEmployees = await _repository.GetEmployeesAsync ();
             return Ok (_mapper.Map<IEnumerable<EmployeeVm>> (getEmployees));
         }
 
-        [HttpGet ("{EmployeeId}", Name = "getEmployee"), NoCache]
+        [HttpGet ("{EmployeeId}", Name = "getEmployee")]
         public async Task<IActionResult> Get (Guid EmployeeId) {
             if (!await _repository.EmployeeExist (EmployeeId)) {
                 return NotFound ($"Unable to find employee with {EmployeeId}");
@@ -38,7 +38,7 @@ namespace New_Application.Controllers {
             return Ok (_mapper.Map<EmployeeVm> (getEmployee));
         }
 
-        [HttpPost, NoCache]
+        [HttpPost]
         public async Task<IActionResult> Post ([FromBody] CreateEmployee entity) {
             if (!ModelState.IsValid) {
                 return BadRequest ();

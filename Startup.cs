@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using New_Application.Infrastructure;
+using New_Application.Models;
 using New_Application.Repository;
 using Newtonsoft.Json;
 
@@ -22,7 +24,7 @@ namespace New_Application {
         public void ConfigureServices (IServiceCollection services) {
             services.AddDbContext<NewApplicationDbContext> (options => {
                 options.UseSqlServer (Configuration.GetConnectionString ("ApplicationConnection"));
-            });
+            }).AddIdentity<ApplicationUser, IdentityRole> ();
             services.AddMvc ()
                 .AddJsonOptions (opt => {
                     opt.SerializerSettings.ReferenceLoopHandling =
@@ -33,7 +35,7 @@ namespace New_Application {
             services.AddAutoMapper ();
         }
 
-        public void Configure (IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
+        public void Configure (IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IdentityInitializer identitySeeder) {
             loggerFactory.AddConsole ();
 
             loggerFactory.AddDebug (LogLevel.Information);
@@ -63,6 +65,7 @@ namespace New_Application {
                 corsPolicyBuilder.AllowAnyMethod ();
                 corsPolicyBuilder.AllowAnyHeader ();
             });
+            identitySeeder.Seed ().Wait ();
             app.UseMvc ();
         }
     }

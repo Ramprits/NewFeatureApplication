@@ -18,5 +18,6 @@ namespace New_Application.Models {
         public Gender Gender { get; set; }
         public Guid DepartmentId { get; set; }
         public Department Department { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }

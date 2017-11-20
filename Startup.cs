@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -25,17 +26,20 @@ namespace New_Application {
             services.AddDbContext<NewApplicationDbContext> (options => {
                 options.UseSqlServer (Configuration.GetConnectionString ("ApplicationConnection"));
             }).AddIdentity<ApplicationUser, IdentityRole> ();
+
             services.AddMvc ()
                 .AddJsonOptions (opt => {
                     opt.SerializerSettings.ReferenceLoopHandling =
                         ReferenceLoopHandling.Ignore;
                 });
+            services.AddScoped<ICampRepository, CampRepository> ();
             services.AddScoped<IEmployeeRepository, EmployeeRepository> ();
             services.AddScoped<IDepartmentRepository, DepartmentRepository> ();
             services.AddAutoMapper ();
         }
 
-        public void Configure (IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IdentityInitializer identitySeeder) {
+        public void Configure (IApplicationBuilder app, IHostingEnvironment env,
+            ILoggerFactory loggerFactory) {
             loggerFactory.AddConsole ();
 
             loggerFactory.AddDebug (LogLevel.Information);
@@ -65,7 +69,6 @@ namespace New_Application {
                 corsPolicyBuilder.AllowAnyMethod ();
                 corsPolicyBuilder.AllowAnyHeader ();
             });
-            identitySeeder.Seed ().Wait ();
             app.UseMvc ();
         }
     }

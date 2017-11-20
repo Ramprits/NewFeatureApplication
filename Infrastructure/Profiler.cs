@@ -11,6 +11,8 @@ namespace New_Application.Infrastructure {
             ForMember (x => x.Label, opt => opt.MapFrom (x => x.Name)).
             ForMember (x => x.Value, opt => opt.MapFrom (x => x.DepartmentId));
             CreateMap<CreateDepartment, Department> ().ReverseMap ();
+            CreateMap<Camp, CampVm> ().ForMember (c => c.Location, opt => opt.ResolveUsing (c => new Location () {
+            })).ReverseMap ();
         }
     }
 }
